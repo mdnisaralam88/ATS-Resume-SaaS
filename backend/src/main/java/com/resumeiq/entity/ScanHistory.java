@@ -1,44 +1,27 @@
 package com.resumeiq.entity;
-
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "scan_history")
+@Document
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class ScanHistory {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    private String id;
+    @DBRef(lazy = true)
     private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resume_id", nullable = false)
+    @DBRef(lazy = true)
     private Resume resume;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ats_score_id")
+    @DBRef(lazy = true)
     private AtsScore atsScore;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_role_id")
+    @DBRef(lazy = true)
     private JobRole jobRole;
-
-    @Column(nullable = false)
     @Builder.Default
     private String status = "COMPLETED";  // PENDING, COMPLETED, FAILED
-
-    @Column(length = 500)
     private String errorMessage;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 }

@@ -1,45 +1,29 @@
 package com.resumeiq.entity;
-
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
-
 /**
  * Generated ATS analysis PDF report.
  */
-@Entity
-@Table(name = "reports")
+@Document
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Report {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ats_score_id", nullable = false, unique = true)
+    private String id;
+    @DBRef(lazy = true)
     private AtsScore atsScore;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @DBRef(lazy = true)
     private User user;
-
-    @Column(nullable = false, length = 500)
     private String filePath;
-
-    @Column(length = 255)
     private String fileName;
-
     @Column
     private Long fileSize;
-
-    @Column(nullable = false)
     @Builder.Default
     private String status = "GENERATED";
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime generatedAt;
 }

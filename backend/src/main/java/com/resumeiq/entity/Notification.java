@@ -1,43 +1,26 @@
 package com.resumeiq.entity;
-
 import com.resumeiq.enums.NotificationType;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "notifications")
+@Document
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Notification {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    private String id;
+    @DBRef(lazy = true)
     private User user;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
     private NotificationType type;
-
-    @Column(nullable = false, length = 200)
     private String title;
-
-    @Column(nullable = false, length = 500)
     private String message;
-
-    @Column(nullable = false)
     @Builder.Default
     private boolean isRead = false;
-
-    @Column(length = 200)
     private String actionUrl;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 }

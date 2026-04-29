@@ -2,7 +2,9 @@ package com.resumeiq.repository;
 
 import com.resumeiq.entity.RefreshToken;
 import com.resumeiq.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
+public interface RefreshTokenRepository extends MongoRepository<RefreshToken, String> {
     Optional<RefreshToken> findByToken(String token);
 
     @Modifying

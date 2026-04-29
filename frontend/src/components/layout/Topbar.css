@@ -1,0 +1,50 @@
+.topbar {
+  position: fixed; top: 0; right: 0;
+  left: var(--sidebar-width); height: var(--topbar-height);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem; z-index: 90;
+  backdrop-filter: blur(10px);
+}
+.topbar-breadcrumb { display: flex; align-items: center; gap: 0.5rem; }
+.topbar-home { color: var(--text-muted); font-size: 0.85rem; transition: var(--transition); }
+.topbar-home:hover { color: var(--primary-light); }
+.topbar-current { color: var(--text-primary); font-size: 0.85rem; font-weight: 600; }
+
+.topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+.topbar-icon-btn {
+  width: 38px; height: 38px; border-radius: var(--radius-md);
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  cursor: pointer; color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); position: relative;
+}
+.topbar-icon-btn:hover { border-color: var(--primary); color: var(--primary-light); }
+.topbar-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--danger); color: white;
+  font-size: 0.65rem; font-weight: 700;
+  min-width: 18px; height: 18px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+}
+.topbar-user {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.375rem 0.75rem 0.375rem 0.375rem;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: var(--radius-full); cursor: pointer;
+  transition: var(--transition); text-decoration: none;
+}
+.topbar-user:hover { border-color: var(--primary); }
+.topbar-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.75rem; color: white;
+  overflow: hidden; flex-shrink: 0;
+}
+.topbar-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.topbar-username { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+
+@media (max-width: 768px) { .topbar { left: 0; } }

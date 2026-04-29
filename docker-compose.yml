@@ -1,24 +1,6 @@
 version: '3.8'
 
 services:
-  # ── Database ────────────────────────────────────────────────────────
-  mysql:
-    image: mysql:8.0
-    container_name: resumeiq-mysql
-    restart: always
-    environment:
-      MYSQL_DATABASE: resumeiq
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
-
   # ── Backend ──────────────────────────────────────────────────────────
   backend:
     build: ./backend
@@ -27,18 +9,13 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/resumeiq?useSSL=false&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nisar:nisar%40123@cluster0.18gz7qn.mongodb.net/resumeiq?retryWrites=true&w=majority
       - JWT_SECRET=5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
       - FILE_UPLOAD_DIR=/app/uploads
       - FILE_REPORT_DIR=/app/reports
     volumes:
       - uploads_data:/app/uploads
       - reports_data:/app/reports
-    depends_on:
-      mysql:
-        condition: service_healthy
 
   # ── Frontend ─────────────────────────────────────────────────────────
   frontend:
@@ -53,6 +30,5 @@ services:
       - backend
 
 volumes:
-  mysql_data:
   uploads_data:
   reports_data:

@@ -8,9 +8,9 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb+srv://nisar:nisar%40123@cluster0.18gz7qn.mongodb.net/resumeiq?retryWrites=true&w=majority
-      - JWT_SECRET=5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
       - FILE_UPLOAD_DIR=/app/uploads
       - FILE_REPORT_DIR=/app/reports
     volumes:

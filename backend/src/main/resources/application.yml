@@ -9,31 +9,9 @@ spring:
   application:
     name: resumeiq-backend
 
-  datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:resumeiq}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      connection-timeout: 30000
-      maximum-pool-size: 10
-      minimum-idle: 2
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-        format_sql: true
-        use_sql_comments: true
-    open-in-view: false
-
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:data.sql
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI}
 
   servlet:
     multipart:
@@ -104,6 +82,6 @@ logging:
   level:
     com.resumeiq: DEBUG
     org.springframework.security: WARN
-    org.hibernate.SQL: WARN
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
